@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    .note {
+      transition: transform 0.3s ease;
+    }
+    .note:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white">
+
+  <!-- Main Container -->
+  <div id="mainContainer" class="container mx-auto py-10 px-5 max-w-xl">
+
+    <!-- Header -->
+    <header class="mb-10 text-center">
+      <h1 class="text-4xl font-bold text-blue-600">📝 Notes App</h1>
+      <p class="text-gray-500">Keep track of your tasks and ideas</p>
+    </header>
+
+    <!-- Sign-In Section -->
+    <section id="sign-in-section" class="text-center mb-10">
+      <button id="googleSignInBtn" class="bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition">
+        Sign in with Google
+      </button>
+    </section>
+
+    <!-- Add Task Section -->
+    <section class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg mb-10" id="add-task-section" style="display:none;">
+      <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Add a New Note</h2>
+      <div class="space-y-4">
+        <input
+          id="taskInput"
+          type="text"
+          placeholder="Note Title"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+        />
+        <textarea
+          id="taskDetails"
+          placeholder="Note Details"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+        ></textarea>
+        <select
+          id="taskCategory"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+        >
+          <option value="" disabled selected>Choose a Category</option>
+          <option value="Work">Work</option>
+          <option value="Personal">Personal</option>
+          <option value="Urgent">Urgent</option>
+        </select>
+        <button
+          id="addTaskBtn"
+          class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition"
+        >
+          Add Note
+        </button>
+      </div>
+    </section>
+
+    <!-- Task List Section -->
+    <section class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg" id="taskListSection" style="display:none;">
+      <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Your Notes</h2>
+      <div id="taskList" class="space-y-4">
+        <!-- Notes will appear here -->
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Dark Mode Toggle -->
+  <button
+    id="toggleDarkMode"
+    class="fixed bottom-5 right-5 bg-gray-500 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 transition"
+  >
+    🌙
+  </button>
+
+  <script>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyC5Zyi61QB_IT89v6quFd-1APIxU93sSZc",
+      authDomain: "notes-15e0b.firebaseapp.com",
+      projectId: "notes-15e0b",
+      storageBucket: "notes-15e0b.firebasestorage.app",
+      messagingSenderId: "317186179429",
+      appId: "1:317186179429:web:896435a05bdb61151f618c",
+      measurementId: "G-RE9Z2VCSZ6"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const firestore = firebase.firestore();
+
+    // DOM Elements
+    const googleSignInBtn = document.getElementById('googleSignInBtn');
+    const taskInput = document.getElementById('taskInput');
+    const taskDetails = document.getElementById('taskDetails');
+    const taskCategory = document.getElementById('taskCategory');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const taskList = document.getElementById('taskList');
+    const toggleDarkMode = document.getElementById('toggleDarkMode');
+    const addTaskSection = document.getElementById('add-task-section');
+    const taskListSection = document.getElementById('taskListSection');
+    const signInSection = document.getElementById('sign-in-section');
+
+    // Google Sign-In
+    googleSignInBtn.addEventListener('click', () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).then((result) => {
+        const user = result.user;
+        console.log('Signed in as:', user.displayName);
+        signInSection.style.display = 'none';
+        addTaskSection.style.display = 'block';
+        taskListSection.style.display = 'block';
+        loadNotes();
+      }).catch((error) => {
+        console.error("Error signing in: ", error.message);
+      });
+    });
+
+    // Sign Out
+    const signOut = () => {
+      auth.signOut().then(() => {
+        console.log('Signed out');
+        signInSection.style.display = 'block';
+        addTaskSection.style.display = 'none';
+        taskListSection.style.display = 'none';
+        loadNotes();
+      });
+    };
+
+    // Handle adding a new task
+    addTaskBtn.addEventListener('click', () => {
+      const title = taskInput.value.trim();
+      const details = taskDetails.value.trim();
+      const category = taskCategory.value;
+
+      if (title && details && category && auth.currentUser) {
+        const task = {
+          title,
+          details,
+          category,
+          userId: auth.currentUser.uid,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        };
+
+        // Save note to Firestore
+        firestore.collection('notes').add(task)
+          .then(() => {
+            console.log('Note added!');
+            loadNotes(); // Refresh notes list
+          })
+          .catch((error) => {
+            console.error('Error adding note: ', error);
+          });
+
+        // Clear inputs
+        taskInput.value = '';
+        taskDetails.value = '';
+        taskCategory.value = '';
+      }
+    });
+
+    // Load Notes from Firestore
+    const loadNotes = () => {
+      taskList.innerHTML = ''; // Clear current task list
+
+      if (auth.currentUser) {
+        const userNotesQuery = firestore.collection('notes')
+          .where('userId', '==', auth.currentUser.uid)
+          .orderBy('createdAt', 'desc');
+
+        userNotesQuery.get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            const task = doc.data();
+            const taskElement = document.createElement('div');
+            taskElement.classList.add('note', 'bg-white', 'dark:bg-gray-800', 'p-4', 'rounded-lg', 'shadow-lg');
+            taskElement.innerHTML = `
+              <h3 class="font-semibold text-xl text-gray-900 dark:text-white">${task.title}</h3>
+              <p class="text-gray-600 dark:text-gray-400">${task.details}</p>
+              <p class="text-gray-500 dark:text-gray-300 mt-2">Category: ${task.category}</p>
+              <button class="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition delete-btn">
+                Delete
+              </button>
+            `;
+            taskList.appendChild(taskElement);
+          });
+        }).catch((error) => {
+          console.error('Error loading notes:', error);
+        });
+      }
+    };
+
+    // Handle task deletion
+    taskList.addEventListener('click', (event) => {
+      if (event.target.classList.contains('delete-btn')) {
+        const taskElement = event.target.closest('.note');
+        const taskId = taskElement.getAttribute('data-id');
+
+        firestore.collection('notes').doc(taskId).delete()
+          .then(() => {
+            console.log('Note deleted!');
+            loadNotes(); // Refresh notes list
+          })
+          .catch((error) => {
+            console.error('Error deleting note: ', error);
+          });
+      }
+    });
+
+    // Dark Mode Toggle
+    toggleDarkMode.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      toggleDarkMode.textContent = document.body.classList.contains('dark') ? '🌞' : '🌙';
+    });
+
+  </script>
+</body>
+</html>

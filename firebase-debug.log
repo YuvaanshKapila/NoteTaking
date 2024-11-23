@@ -1,0 +1,139 @@
+[debug] [2024-11-23T01:14:21.779Z] ----------------------------------------------------------------------
+[debug] [2024-11-23T01:14:21.783Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-11-23T01:14:21.784Z] CLI Version:   13.27.0
+[debug] [2024-11-23T01:14:21.784Z] Platform:      win32
+[debug] [2024-11-23T01:14:21.784Z] Node Version:  v22.11.0
+[debug] [2024-11-23T01:14:21.784Z] Time:          Fri Nov 22 2024 20:14:21 GMT-0500 (Eastern Standard Time)
+[debug] [2024-11-23T01:14:21.785Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-11-23T01:14:21.795Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-23T01:14:21.796Z] > authorizing via signed-in user (kapilayuvaansh@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\User\Downloads\NotesApp
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-11-23T01:16:52.170Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:16:52.171Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:16:52.175Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2024-11-23T01:16:52.735Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-11-23T01:16:52.735Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project notes-15e0b (Notes) 
+[info] 
+=== Dataconnect Setup
+[debug] [2024-11-23T01:16:53.368Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:16:53.369Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:16:53.369Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/notes-15e0b/billingInfo [none]
+[debug] [2024-11-23T01:16:53.826Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/notes-15e0b/billingInfo 200
+[debug] [2024-11-23T01:16:53.826Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/notes-15e0b/billingInfo {"name":"projects/notes-15e0b/billingInfo","projectId":"notes-15e0b","billingAccountName":"","billingEnabled":false}
+[info] i  dataconnect: ensuring required API sqladmin.googleapis.com is enabled... 
+[debug] [2024-11-23T01:16:53.827Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:16:53.827Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:16:53.827Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/notes-15e0b/services/sqladmin.googleapis.com [none]
+[debug] [2024-11-23T01:16:53.827Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/notes-15e0b/services/sqladmin.googleapis.com x-goog-quota-user=projects/notes-15e0b
+[debug] [2024-11-23T01:16:54.369Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/notes-15e0b/services/sqladmin.googleapis.com 200
+[debug] [2024-11-23T01:16:54.369Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/notes-15e0b/services/sqladmin.googleapis.com [omitted]
+[info] +  dataconnect: required API sqladmin.googleapis.com is enabled 
+[info] i  dataconnect\dataconnect.yaml is unchanged 
+[info] i  dataconnect\schema\schema.gql is unchanged 
+[info] i  Skipping write of dataconnect\connector\connector.yaml 
+[info] i  dataconnect\connector\queries.gql is unchanged 
+[info] i  dataconnect\connector\mutations.gql is unchanged 
+[info] +  Detected WEB app in directory C:\Users\User\Downloads\NotesApp 
+[info] i  Wrote new config to C:\Users\User\Downloads\NotesApp\dataconnect\connector/connector.yaml 
+[info] I1122 20:17:00.008677    1580 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "C:\\Users\\User\\Downloads\\NotesApp\\dataconnect-generated\\js\\default-connector"
+I1122 20:17:00.010672    1580 generate.go:40] Generated all sources. Writing them to disk...
+I1122 20:17:00.015234    1580 collector.go:107] connector "default" javascriptSdk wrote into "C:\\Users\\User\\Downloads\\NotesApp\\dataconnect-generated\\js\\default-connector"
+Generated sources: package.json [623B] index.d.ts [264B] esm\index.esm.js [181B] esm\package.json [17B] index.cjs.js [222B] 
+I1122 20:17:00.051088    1580 installsdk.go:76] Running command: C:\Program Files\nodejs\npm.cmd install file:dataconnect-generated\js\default-connector
+
+[info] i  Generated SDK code for default 
+[info] +  If you'd like to add more generated SDKs to your app your later, run firebase init dataconnect:sdk again 
+[info] i  If you'd like to provision a CloudSQL Postgres instance on the Firebase Data Connect no-cost trial:
+1. Please upgrade to the pay-as-you-go (Blaze) billing plan. Visit the following page:
+     https://console.firebase.google.com/project/notes-15e0b/usage/details
+2. Run firebase init dataconnect again to configure the Cloud SQL instance.
+3. Run firebase deploy --only dataconnect to deploy your Data Connect service. 
+[info] 
+=== Firestore Setup
+[debug] [2024-11-23T01:17:05.165Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:05.165Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:05.166Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/notes-15e0b/services/firestore.googleapis.com [none]
+[debug] [2024-11-23T01:17:05.166Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/notes-15e0b/services/firestore.googleapis.com x-goog-quota-user=projects/notes-15e0b
+[debug] [2024-11-23T01:17:06.043Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/notes-15e0b/services/firestore.googleapis.com 200
+[debug] [2024-11-23T01:17:06.043Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/notes-15e0b/services/firestore.googleapis.com [omitted]
+[debug] [2024-11-23T01:17:06.044Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:06.044Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:06.044Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/notes-15e0b/databases/(default) [none]
+[debug] [2024-11-23T01:17:06.365Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/notes-15e0b/databases/(default) 200
+[debug] [2024-11-23T01:17:06.366Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/notes-15e0b/databases/(default) {"name":"projects/notes-15e0b/databases/(default)","uid":"74ed3179-e552-4e7a-91ad-79cdb462bf10","createTime":"2024-11-22T22:41:52.406669Z","updateTime":"2024-11-22T22:41:52.406669Z","locationId":"nam5","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2024-11-23T00:17:07.882989Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"s","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","etag":"IIHE0pCk8YkDMPjUhYWc8YkD"}
+[debug] [2024-11-23T01:17:06.366Z] database_type: FIRESTORE_NATIVE
+[debug] [2024-11-23T01:17:06.366Z] database_type: FIRESTORE_NATIVE
+[debug] [2024-11-23T01:17:06.367Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-23T01:17:06.367Z] > authorizing via signed-in user (kapilayuvaansh@gmail.com)
+[debug] [2024-11-23T01:17:06.367Z] [iam] checking project notes-15e0b for permissions ["firebase.projects.get"]
+[debug] [2024-11-23T01:17:06.368Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:06.369Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:06.369Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/notes-15e0b:testIamPermissions [none]
+[debug] [2024-11-23T01:17:06.369Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/notes-15e0b:testIamPermissions x-goog-quota-user=projects/notes-15e0b
+[debug] [2024-11-23T01:17:06.369Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/notes-15e0b:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-11-23T01:17:06.732Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/notes-15e0b:testIamPermissions 200
+[debug] [2024-11-23T01:17:06.732Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/notes-15e0b:testIamPermissions {"permissions":["firebase.projects.get"]}
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2024-11-23T01:17:10.050Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:10.050Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:10.050Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/notes-15e0b/releases pageSize=10&pageToken=
+[debug] [2024-11-23T01:17:10.444Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/notes-15e0b/releases 200
+[debug] [2024-11-23T01:17:10.444Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/notes-15e0b/releases {"releases":[{"name":"projects/notes-15e0b/releases/cloud.firestore","rulesetName":"projects/notes-15e0b/rulesets/0a8dbfdc-23b9-4b7a-b68b-46077d6eaa80","createTime":"2024-11-22T22:41:54.548813Z","updateTime":"2024-11-22T22:41:54.548813Z"}]}
+[debug] [2024-11-23T01:17:10.445Z] Found ruleset: projects/notes-15e0b/rulesets/0a8dbfdc-23b9-4b7a-b68b-46077d6eaa80
+[debug] [2024-11-23T01:17:10.445Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:10.446Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:10.446Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/notes-15e0b/rulesets/0a8dbfdc-23b9-4b7a-b68b-46077d6eaa80 [none]
+[debug] [2024-11-23T01:17:10.628Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/notes-15e0b/rulesets/0a8dbfdc-23b9-4b7a-b68b-46077d6eaa80 200
+[debug] [2024-11-23T01:17:10.629Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/notes-15e0b/rulesets/0a8dbfdc-23b9-4b7a-b68b-46077d6eaa80 [omitted]
+[info] 
+[info] Firestore indexes allow you to perform complex queries while
+[info] maintaining performance that scales with the size of the result
+[info] set. You can keep index definitions in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2024-11-23T01:17:12.871Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:12.871Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:12.871Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:12.872Z] Checked if tokens are valid: true, expires at: 1732327477409
+[debug] [2024-11-23T01:17:12.872Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/notes-15e0b/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2024-11-23T01:17:12.877Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/notes-15e0b/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2024-11-23T01:17:13.209Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/notes-15e0b/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2024-11-23T01:17:13.209Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/notes-15e0b/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/notes-15e0b/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[debug] [2024-11-23T01:17:13.210Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/notes-15e0b/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2024-11-23T01:17:13.210Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/notes-15e0b/databases/(default)/collectionGroups/-/indexes {}
+[info] 
+=== Genkit Setup
+[debug] [2024-11-23T01:17:13.383Z] Error: spawnSync npm ENOENT
+    at Object.spawnSync (node:internal/child_process:1123:20)
+    at spawnSync (node:child_process:874:24)
+    at execFileSync (node:child_process:917:15)
+    at getGenkitVersion (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\genkit\index.js:29:58)
+    at doSetup (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\genkit\index.js:56:30)
+    at init (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\index.js:41:15)
+    at init (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\index.js:42:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: An unexpected error has occurred.
